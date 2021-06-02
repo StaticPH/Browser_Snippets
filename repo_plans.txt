@@ -1,0 +1,42 @@
+https://stackoverflow.com/questions/25177014/make-some-files-private-in-a-repository/25177066
+	also found locally at file:///D:/Users_2nd/Static7s/Downloads/git%20-%20Make%20some%20files%20private%20in%20a%20repository%20-%20Stack%20Overflow.mhtml
+or if i'm feeling like pain, and would prefer to have a public repo accessed from a private repo as a submodule, https://stackoverflow.com/questions/57466958/make-directory-in-private-github-repo-public
+
+—————IGNORE
+dust_bunnies 
+failed _do_nothing_ bookmarklet attempts.txt 
+howtos 
+log.js 
+5etools_click_get_homebrew.js 
+makeObjectIntoEntireBody.js 
+
+—————Private for CHROMIUM
+chromeGetSiteCookies.js
+chromeGetSitesOnGlobalCookieBlocklist.js 
+miscThings.js 							more like a notes file
+searchForStringInBookmarkName.js		defective?
+
+—————private	general
+borrowed 
+rclick.js 
+novelupdatesSearchPreset.js 
+trimHackagePackages.js 
+githubToggleCollapseAll.js 
+
+
+—————Public for CHROMIUM
+chromeDumpFlagSettings.js 
+chromeGetHistoryEntries.js
+chromeGetBookmarksOnPage.js
+
+—————public general
+checkAllBoxes.js 
+getGithubTopicsOnPage.js 
+getImages.js
+getURLParameters.js 
+githubTopicLoadMore.js 
+removeAllOfElement.js 
+githubRemoveSymlinks.js 
+screwUnselectable.js 
+titleAndDescriptionUtils.js 
+replacePageTitleInHistory.js
