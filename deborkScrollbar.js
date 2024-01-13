@@ -324,4 +324,11 @@
 	}
 })();
 
+(function turnOffPerfectScrollbar(){
+	Array.prototype.forEach.call(
+		document.getElementsByClassName('perfect-scrollbar-on'),
+		e => e.classList.replace('perfect-scrollbar-on', 'perfect-scrollbar-off')
+	);
+})();
+
 void(0);
