@@ -1,41 +1,28 @@
-/*
-output = document.createElement('textarea');
-document.querySelector('div.blurb-container').insertAdjacentElement('afterEnd', output);
-document.querySelectorAll('div[jsselect="supportedFeatures"][id]').forEach(function(e){ //the [id] removes unavailable flags
-	let setting  = e.querySelector('select.experiment-select');
-	let modifier = e.querySelector('div.experiment-switched') ? '*' : '';
-	// output.value = output.value + modifier + 'index = ' + setting.selectedIndex + '\t#' + e.id + "\tvalue=" + setting.value + '\n';
-	output.value = `${output.value}${modifier}index = ${setting.selectedIndex}\t#${e.id}\tvalue=${setting.value}\n`;
-});
-
-document.querySelectorAll('div.experiment-switched p'); //text for all flags that have been user-set
-*/
-
-//remove basically everything on the page except the flag names and their current settings
-// document.querySelectorAll('div[jsselect="supportedFeatures"][id] p, h3.experiment-name').forEach(e => e.remove());
-// document.querySelectorAll('div.experiment-switched a').forEach(e => e.text = '*\t' + e.text);
-//then just copy/paste the whole page body somewhere and format as desired
-
-
 (function(){
 	let chromiumVersion = 'Chromium Version: ' + document.getElementById('version').textContent;
-	let flags = '';
-	let key, value;
-	// Remove basically everything on the page except the flag names and their current settings
-	document.querySelectorAll('div[jsselect="supportedFeatures"][id] p, h3.experiment-name').forEach(ele => ele.remove());
+	let flags = [];
+	document.querySelectorAll('div#tab-content-available > div > div[jsselect="supportedFeatures"][id]:not([style="display: none;"]) > flags-experiment').forEach(function(experiment){
+		let root = experiment.shadowRoot;
+		let flag = root.querySelector('div > a');
+		let textArea = root.querySelector('textarea-container');
 
-	// Prefix user-specified flags with an asterisk, followed by a tab character
-	document.querySelectorAll('div.experiment-switched a').forEach(ele => ele.text = '*\t' + ele.text);
+		//shadowRoot.querySelector('div.flex.experiment-actions > select').getAttribute('data-internal-name') should return the same as shadowRoot.querySelector('div.flex > a.permalink').textContent, aside from the latter's leading '#'
+		let value = root.querySelector('select.experiment-enable-disable,select.experiment-select').value;
+		value = value[0].toUpperCase() + value.slice(1);
 
-	document.querySelectorAll('div#tab-content-available > div > div.experiment:not([style="display: none;"]) > div').forEach(function(ele){
-		key = ele.querySelector('div > a').textContent;
-		value = ele.querySelector('div.experiment-actions > div > select.experiment-select').value;
-		if (! value){
-			value = ele.querySelector('div.experiment-actions > select.experiment-enable-disable').value;
-			value = value[0].toUpperCase() + value.slice(1);
-		}
-		flags += key + '\t' + value + '\n';
+		// let switchedFlagLabel = root.querySelector('div.experiment-switched a');
+		// `{switchedFlagLabel ? '*\t' + switchedFlagLabel.textContent : root.querySelector('div > a').textContent}`
+
+		// root.querySelectorAll('.experiment-name, p').forEach(e => e.remove()));
+
+		flags.push(
+			(flag.parentElement.parentElement.classList.contains('experiment-switched') ? '*\t': '') +
+			flag.textContent + '\t' +
+			value +
+			(textArea && textArea.textContent.length !== 0 ? '\t\t' + textArea.textContent : '')
+		);
 	});
-	copy(flags);
+
+	copy(chromiumVersion + '\n' + flags.join('\n'));
 	console.log('Current browser flags configuration has been saved to the clipboard.');
 })();
