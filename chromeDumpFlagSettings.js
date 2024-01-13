@@ -1,7 +1,10 @@
 (function(){
+	const flagsApp = window.document.querySelector('flags-app');
+	let document = (flagsApp && flagsApp.shadowRoot) ? flagsApp.shadowRoot : window.document;
 	let chromiumVersion = 'Chromium Version: ' + document.getElementById('version').textContent;
+
 	let flags = [];
-	document.querySelectorAll('div#tab-content-available > div > div[jsselect="supportedFeatures"][id]:not([style="display: none;"]) > flags-experiment').forEach(function(experiment){
+	document.querySelectorAll('div#tab-content-available div[id]:not([style="display: none;"]) > flags-experiment').forEach(function(experiment){
 		let root = experiment.shadowRoot;
 		let flag = root.querySelector('div > a');
 		let textArea = root.querySelector('textarea-container');
